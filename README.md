@@ -14,3 +14,4 @@ const runAllFns = redux.compose(
   fn3
 );
 ```
++ Reducers - Functions that receive the current state and an action as inputs and produce a new state as the output.
