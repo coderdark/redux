@@ -18,7 +18,20 @@ const runAllFns = redux.compose(
   - `state`
   - `action`, the only requirement for an action is to have a `type`.  You can append other properties like `payload`
 ```
+//Example 1
 const reducer = (state, action) => {
   return state;
 }
+
+//Example 2
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return {...state, value: 1};
+        case 'DECREMENT':
+            return {...state, value: -1};
+    }
+
+    return state;
+};
 ```
