@@ -80,8 +80,8 @@ import {createStore, compose, applyMiddleware, bindActionCreators, combineReduce
 
 const initialState = {value: 0};
 
-const increase = (amount) => ({type: 'INCREMENT'});
-const decrease = (amount) => ({type: 'DECREMENT'});
+const increase = () => ({type: 'INCREMENT'});
+const decrease = () => ({type: 'DECREMENT'});
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -96,12 +96,16 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer, initialState);
 
-store.dispatch(increase());
-store.dispatch(increase());
-store.dispatch(increase());
-store.dispatch(increase());
-store.dispatch(increase());
-store.dispatch(decrease());
+store.subscribe(() => {
+    console.log('SUBSCRIBER', store.getState());
+});
 
-console.log(store.getState());
+const actions = bindActionCreators({increase, decrease}, store.dispatch);
+
+actions.increase();
+actions.increase();
+actions.increase();
+actions.increase();
+actions.increase();
+actions.decrease();
 ```
