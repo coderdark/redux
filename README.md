@@ -27,9 +27,9 @@ const reducer = (state, action) => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return {...state, value: state.value + 1};
+            return {value: state.value + 1};
         case 'DECREMENT':
-            return {...state, value: state.value - 1};
+            return {value: state.value - 1};
     }
 
     return state;
@@ -39,9 +39,9 @@ const reducer = (state = initialState, action) => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return {...state, value: state.value + action.payload};
+            return {value: state.value + action.payload};
         case 'DECREMENT':
-            return {...state, value: state.value + action.payload};
+            return {value: state.value + action.payload};
     }
 
     return state;
