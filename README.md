@@ -55,6 +55,7 @@ const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
 store.dispatch(increase());
 ```
++Store - Only one store, having multiple store is an unti-pattern.
 ## Full Example
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
