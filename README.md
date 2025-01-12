@@ -103,7 +103,23 @@ const appReducer = combineReducers({
 const store = createStore(appReducer, initialState);
 ```
 + Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library.  An example is `applyMiddleware` from the Redux library.
+```
+//Custom enhancer
+const monitorReducerEnhancer = (createStore) => (reducer, initialState, enhancer) => {
+  const monitoredReducer = (state, action) => {
+    const start = performance.now();
+    const newState = reducer(state, action);
+    const end = performance.now();
+    const diff = round(end - start);
 
+    console.log("Reducer process time:", diff);
+
+    return newState;
+  };
+
+  return createStore(monitoredReducer, initialState, enhancer);
+};
+```
 
 ## Full Example (Vanilla JS)
 ```
