@@ -79,34 +79,45 @@ actions.decrease();
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
 
-const initialState = {value: 0};
+const initialState = {players: [], teams: []};
 
-const increase = () => ({type: 'INCREMENT'});
-const decrease = () => ({type: 'DECREMENT'});
+const addPlayer = (player) => ({type: 'ADD_PLAYER', payload: player});
+const addTeam = (team) => ({type: 'ADD_TEAM', payload: team});
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'INCREMENT':
-            return {value: state.value + 1};
-        case 'DECREMENT':
-            return {value: state.value - 1};
+const playersReducer = (players = initialState.players, action) => {
+    if (action.type === 'ADD_PLAYER') {
+        return [...players, action.payload];
     }
 
-    return state;
+    return players;
 };
 
-const store = createStore(reducer, initialState);
+const teamsReducer = (teams = initialState.teams, action) => {
+    if (action.type === 'ADD_TEAM') {
+        return [...teams, action.payload];
+    }
 
-store.subscribe(() => {
-    console.log('SUBSCRIBER', store.getState());
+    return teams;
+};
+
+const appReducer = combineReducers({
+    players: playersReducer,
+    teams: teamsReducer
 });
 
-const actions = bindActionCreators({increase, decrease}, store.dispatch);
+const store = createStore(appReducer, initialState);
 
-actions.increase();
-actions.increase();
-actions.increase();
-actions.increase();
-actions.increase();
-actions.decrease();
+store.subscribe(() => console.log(store.getState()));
+
+const actions = bindActionCreators({addPlayer, addTeam}, store.dispatch);
+
+// Call dispatch if not using the bindActionCreator function
+// store.dispatch(addPlayer({name: 'Josh Allen'}));
+// store.dispatch(addPlayer({name: 'Joe Montana'}));
+// store.dispatch(addTeam({name: 'Buffalo Bills'}));
+// store.dispatch(addTeam({name: '49ers'}));
+
+actions.addPlayer({name: 'Josh Allen'});
+actions.addTeam({team: 'Buffalo Bills'});
+
 ```
