@@ -75,7 +75,7 @@ actions.decrease();
 + `combineReducers`
 
 
-## Full Example
+## Full Example (Vanilla JS)
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
 
