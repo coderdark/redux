@@ -2,6 +2,7 @@
 Global state management (internally uses react context). Small api set: `applyMiddleware`, `bindActionCreators`, `combineReducers`, `compose`, `createStore` + 4 more.
 
 ## API
++ Store - Its the place that keeps your state. Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
 + Componse - takes multiple functions and composes a new function that applies all the functions passed from right to left.
 ```
 const fn1 = (string) => string.toUpperCase();
@@ -60,9 +61,19 @@ store.dispatch(increase());
 store.getState();
 ```
 + `subscribe` - It registers a listener for the store. You pass a function as an argument to be executed any time the state changes. It listens to any changeges of the state.
-+ Store - Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
++ `bindActionCreators` - It registers your function to be called without having to use `dispatch`. It basically binds your functions to the object you pass as an argument. This way you can call your functions without the `dispatch` method.
+```
+const actions = bindActionCreators({increase, decrease}, store.dispatch);
 
-  
+actions.increase();
+actions.increase();
+actions.increase();
+actions.increase();
+actions.increase();
+actions.decrease();
+```
+
+
 ## Full Example
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
