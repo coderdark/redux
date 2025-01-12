@@ -102,7 +102,7 @@ const appReducer = combineReducers({
 
 const store = createStore(appReducer, initialState);
 ```
-+ `applyMiddleware` - 
++ `applyMiddleware` - is an enhancer to add additional fuctionality to the redux store.
 
 
 ## Full Example (Vanilla JS)
