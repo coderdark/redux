@@ -61,7 +61,7 @@ store.dispatch(increase());
 store.getState();
 ```
 + `subscribe` - It registers a listener for the store. You pass a function as an argument to be executed any time the state changes. It listens to any changeges of the state.
-+ `bindActionCreators` - It registers your function to be called without having to use `dispatch`. It basically binds your functions to the object you pass as an argument. This way you can call your functions without the `dispatch` method.
++ `bindActionCreators` - It registers your functions to be called without having to use `dispatch`.  It basically binds your functions to the object you pass as an argument. This way you can call your functions without the `dispatch` method.  The first object argument with your functions inside as properties, second the dispatch method.
 ```
 const actions = bindActionCreators({increase, decrease}, store.dispatch);
 
