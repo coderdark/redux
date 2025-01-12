@@ -72,7 +72,37 @@ actions.increase();
 actions.increase();
 actions.decrease();
 ```
-+ `combineReducers`
++ `combineReducers` - it combines all your reducers into one, you can then pass the return reducer from this function in the `createStore` function.
+```
+const initialState = {players: [], teams: []};
+
+const addPlayer = (player) => ({type: 'ADD_PLAYER', payload: player});
+const addTeam = (team) => ({type: 'ADD_TEAM', payload: team});
+
+const playersReducer = (players = initialState.players, action) => {
+    if (action.type === 'ADD_PLAYER') {
+        return [...players, action.payload];
+    }
+
+    return players;
+};
+
+const teamsReducer = (teams = initialState.teams, action) => {
+    if (action.type === 'ADD_TEAM') {
+        return [...teams, action.payload];
+    }
+
+    return teams;
+};
+
+const appReducer = combineReducers({
+    players: playersReducer,
+    teams: teamsReducer
+});
+
+const store = createStore(appReducer, initialState);
+```
++ `applyMiddleware` - 
 
 
 ## Full Example (Vanilla JS)
