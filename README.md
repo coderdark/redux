@@ -59,6 +59,7 @@ store.dispatch(increase());
 ```
 store.getState();
 ```
++ `subscribe` - It registers a listener for the store. You pass a function as an argument to be executed any time the state changes. It listens to any changeges of the state.
 + Store - Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
 
   
