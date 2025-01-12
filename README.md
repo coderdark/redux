@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
 ```
 const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
-+ Dispatch - this function executes the action and dispaches its return to trigger a state change.
++ `dispatch` - this function executes the action and dispaches its return to trigger a state change.
 ```
 store.dispatch(increase());
 ```
@@ -59,7 +59,9 @@ store.dispatch(increase());
 ```
 store.getState();
 ```
-+ Store - Only one store, having multiple store is an unti-pattern.
++ Store - Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
+
+  
 ## Full Example
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
