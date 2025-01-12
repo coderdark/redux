@@ -27,9 +27,21 @@ const reducer = (state, action) => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return {...state, value: 1};
+            return {...state, value: state.value + 1};
         case 'DECREMENT':
-            return {...state, value: -1};
+            return {...state, value: state.value - 1};
+    }
+
+    return state;
+};
+
+//Example 3
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return {...state, value: action.payload};
+        case 'DECREMENT':
+            return {...state, value: action.payload};
     }
 
     return state;
@@ -38,4 +50,39 @@ const reducer = (state = initialState, action) => {
 + Action Creators - A simple function where you pass the payload as an argument and return an object with the state and the action as properties.  This also helps when refactoring your code.  If you did not use an action creator but just declare an action like this `const incrementAction = {type: 'INCREMENT'};` all over your code, when a change is needed you have to go and search your code to change the action.  Best practice is to use an action creator.
 ```
 const increase = (amount) => ({type: 'INCREMENT', payload: amount});
+```
++ Dispatch - this function executes the action and dispaches it return.
+```
+store.dispatch(increase());
+```
+## Full Example
+```
+import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
+
+const initialState = {value: 0};
+
+const increase = (amount) => ({type: 'INCREMENT'});
+const decrease = (amount) => ({type: 'DECREMENT'});
+
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return {...state, value: state.value + 1};
+        case 'DECREMENT':
+            return {...state, value: state.value - 1};
+    }
+
+    return state;
+};
+
+const store = createStore(reducer, initialState);
+
+store.dispatch(increase());
+store.dispatch(increase());
+store.dispatch(increase());
+store.dispatch(increase());
+store.dispatch(increase());
+store.dispatch(decrease());
+
+console.log(store.getState());
 ```
