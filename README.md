@@ -14,7 +14,7 @@ const runAllFns = redux.compose(
   fn3
 );
 ```
-+ Reducers - Functions that receive the current state and an action as inputs and produce a new state as the output. Keep your state as flat as you can or breake it down into multiple reducers.
++ Reducers - Functions that receive the current state and an action as inputs and produce a new state as the output. Keep your state as flat as you can or break it down into multiple reducers. Including API responses that you do not control, break the response at the client to be stored in redux. 
   - `state`
   - `action`, the only requirement for an action is to have a `type`.  You can append other properties like `payload`
 ```
