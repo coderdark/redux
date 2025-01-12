@@ -35,3 +35,7 @@ const reducer = (state = initialState, action) => {
     return state;
 };
 ```
++ Action Creators - A simple function where you pass the payload as an argument and return an object with the state and the action as properties.  This also helps when refactoring your code.  If you did not use an action creator but just declare an action like this `const incrementAction = {type: 'INCREMENT'};` all over your code, when a change is needed you have to go and search your code to change the action.  Best practice is to use an action creator.
+```
+const increase = (amount) => ({type: 'INCREMENT', payload: amount});
+```
