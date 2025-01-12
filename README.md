@@ -151,7 +151,21 @@ const appReducer = combineReducers({
     teams: teamsReducer
 });
 
-const store = createStore(appReducer, initialState);
+const stateSnapShotEnhancer = (createStore) => (reducer, initialState, enhancer) => {
+    const snapShotReducer = (state, action) => {
+        console.log('Before', state);
+
+        const newState = reducer(state, action);
+
+        console.log('After', newState);
+
+        return newState;
+    };
+
+    return createStore(snapShotReducer, initialState, enhancer);
+};
+
+const store = createStore(appReducer, stateSnapShotEnhancer);
 
 store.subscribe(() => console.log(store.getState()));
 
@@ -165,5 +179,4 @@ const actions = bindActionCreators({addPlayer, addTeam}, store.dispatch);
 
 actions.addPlayer({name: 'Josh Allen'});
 actions.addTeam({team: 'Buffalo Bills'});
-
 ```
