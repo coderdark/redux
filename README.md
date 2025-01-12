@@ -72,6 +72,7 @@ actions.increase();
 actions.increase();
 actions.decrease();
 ```
++ `combineReducers`
 
 
 ## Full Example
