@@ -67,9 +67,9 @@ const decrease = (amount) => ({type: 'DECREMENT'});
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return {...state, value: state.value + 1};
+            return {value: state.value + 1};
         case 'DECREMENT':
-            return {...state, value: state.value - 1};
+            return {value: state.value - 1};
     }
 
     return state;
