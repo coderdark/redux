@@ -102,7 +102,7 @@ const appReducer = combineReducers({
 
 const store = createStore(appReducer, initialState);
 ```
-+ Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library.  An example is `applyMiddleware` from the Redux library.
++ Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library. 
 ```
 //Custom enhancer
 const monitorReducerEnhancer = (createStore) => (reducer, initialState, enhancer) => {
@@ -119,6 +119,16 @@ const monitorReducerEnhancer = (createStore) => (reducer, initialState, enhancer
 
   return createStore(monitoredReducer, initialState, enhancer);
 };
+```
++ Middleware - Prefer way, better than enhancers. Add additional fuctionality to the redux store. They can be created by you or from a library. Use Redux's `applyMiddleware` to implement them.
+```
+const stateSnapShot = (store) => (next) => (actions) => {
+    console.log('Before', store.getState());
+    next(actions);
+    console.log('After', store.getState());
+};
+
+const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 ```
 
 ## Full Example (Vanilla JS)
@@ -151,21 +161,31 @@ const appReducer = combineReducers({
     teams: teamsReducer
 });
 
-const stateSnapShotEnhancer = (createStore) => (reducer, initialState, enhancer) => {
-    const snapShotReducer = (state, action) => {
-        console.log('Before', state);
+//// This code is using enhancers, better way is to use middleware, see example below.
+// const stateSnapShotEnhancer = (createStore) => (reducer, initialState, enhancer) => {
+//     const snapShotReducer = (state, action) => {
+//         console.log('Before', state);
+//
+//         const newState = reducer(state, action);
+//
+//         console.log('After', newState);
+//
+//         return newState;
+//     };
+//
+//     return createStore(snapShotReducer, initialState, enhancer);
+// };
 
-        const newState = reducer(state, action);
+// const store = createStore(appReducer, stateSnapShotEnhancer);
 
-        console.log('After', newState);
-
-        return newState;
-    };
-
-    return createStore(snapShotReducer, initialState, enhancer);
+//Middleware are simpler than enhancers
+const stateSnapShot = (store) => (next) => (actions) => {
+    console.log('Before', store.getState());
+    next(actions);
+    console.log('After', store.getState());
 };
 
-const store = createStore(appReducer, stateSnapShotEnhancer);
+const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 
 store.subscribe(() => console.log(store.getState()));
 
@@ -179,4 +199,5 @@ const actions = bindActionCreators({addPlayer, addTeam}, store.dispatch);
 
 actions.addPlayer({name: 'Josh Allen'});
 actions.addTeam({team: 'Buffalo Bills'});
+
 ```
