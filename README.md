@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
 ```
 const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
-+ `dispatch` - this function executes the action and dispaches its return to trigger a state change.
++ `dispatch` - this function executes the action and dispaches its return to trigger a state change.  The dispatch goes thru ALL of the reducers found in the store.
 ```
 store.dispatch(increase());
 ```
