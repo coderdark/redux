@@ -102,7 +102,7 @@ const appReducer = combineReducers({
 
 const store = createStore(appReducer, initialState);
 ```
-+ `applyMiddleware` - is an enhancer to add additional fuctionality to the redux store.
++ Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library.  An example is `applyMiddleware` from the Redux library.
 
 
 ## Full Example (Vanilla JS)
