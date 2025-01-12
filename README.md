@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
 ```
 const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
-+ Dispatch - this function executes the action and dispaches it return.
++ Dispatch - this function executes the action and dispaches its return.
 ```
 store.dispatch(increase());
 ```
