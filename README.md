@@ -55,7 +55,7 @@ const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
 store.dispatch(increase());
 ```
-+ getState - It returns the state of the store.
++ `getState` - It returns the state of the store.
 ```
 store.getState();
 ```
