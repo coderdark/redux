@@ -15,6 +15,8 @@ const runAllFns = redux.compose(
 );
 ```
 + Reducers - Functions that receive the current state and an action as inputs and produce a new state as the output.
+  - `state`
+  - `action`, the only requirement for an action is to have a `type`.  You can append other properties like `payload`
 ```
 const reducer = (state, action) => {
   return state;
