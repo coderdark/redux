@@ -111,7 +111,7 @@ store.subscribe(() => console.log(store.getState()));
 
 const actions = bindActionCreators({addPlayer, addTeam}, store.dispatch);
 
-// Call dispatch if not using the bindActionCreator function
+//// Call dispatch if not using the bindActionCreator function
 // store.dispatch(addPlayer({name: 'Josh Allen'}));
 // store.dispatch(addPlayer({name: 'Joe Montana'}));
 // store.dispatch(addTeam({name: 'Buffalo Bills'}));
