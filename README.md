@@ -102,7 +102,7 @@ const appReducer = combineReducers({
 
 const store = createStore(appReducer, initialState);
 ```
-+ Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library. 
++ Enhancers - Add additional fuctionality to the redux store. They can be created by you or from a library.  Use `compose` to implement many enhancers.
 ```
 //Custom enhancer
 const monitorReducerEnhancer = (createStore) => (reducer, initialState, enhancer) => {
@@ -119,8 +119,13 @@ const monitorReducerEnhancer = (createStore) => (reducer, initialState, enhancer
 
   return createStore(monitoredReducer, initialState, enhancer);
 };
+
+const store = createStore(appReducer, stateSnapShotEnhancer);
+
+//If using many enhancers use `componse`
+//const store = createStore(appReducer, compose(stateSnapShotEnhancer, myOtherEnhancer));
 ```
-+ Middleware - Prefer way, better than enhancers. Add additional fuctionality to the redux store. They can be created by you or from a library. Use Redux's `applyMiddleware` to implement them.
++ Middleware - Prefer way, better than enhancers. Add additional fuctionality to the redux store. They can be created by you or from a library. Use Redux's `applyMiddleware` to implement 1 or many (comma separated).
 ```
 const stateSnapShot = (store) => (next) => (actions) => {
     console.log('Before', store.getState());
@@ -129,6 +134,9 @@ const stateSnapShot = (store) => (next) => (actions) => {
 };
 
 const store = createStore(appReducer, applyMiddleware(stateSnapShot));
+
+//If you have more than one middleware, you can include them all in the applyMiddleware separated by comma.
+//const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 ```
 
 ## Full Example (Vanilla JS)
