@@ -1,14 +1,21 @@
 # Redux
 Global state management (internally uses react context). Small api set: `applyMiddleware`, `bindActionCreators`, `combineReducers`, `compose`, `createStore` + 4 more.
 
-## Redux Toolkit - https://redux-toolkit.js.org/
-Sits on top of **Redux**
-###
-
-
 ## Redux
 ### API
 + Store - Its the place that keeps your state. Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
+```
+import {applyMiddleware, createStore} from 'redux';
+import {counterReducer} from './reducers/index.js';
+import {localStorage} from './localStorage.js';
+
+const initialState = {count: 0};
+
+export const store = createStore(counterReducer, initialState);
+
+////If you use middlewares
+// export const store = createStore(counterReducer, initialState, applyMiddleware(localStorage));
+```
 + Componse - takes multiple functions and composes a new function that applies all the functions passed from right to left.
 ```
 const fn1 = (string) => string.toUpperCase();
@@ -276,4 +283,17 @@ function App() {
 }
 
 export default App;
+```
+
+## Redux Toolkit - https://redux-toolkit.js.org/
+Sits on top of **Redux**, it hides alot of the stuff that redux needs to work. Basically some of the foundation work you did in redux. 
++ Folder (Features) structure is app to your app and what works for you.
++ Slices - you keep all your redux pieces such as actions creators, reducers, etc in here.
++ Store - use the `configureStore` to set your redux store.
+```
+import { configureStore } from "@reduxjs/toolkit";
+
+export const store = configureStore({
+  reducer: (state) => state,
+});
 ```
