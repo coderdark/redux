@@ -65,9 +65,29 @@ const reducer = (state = initialState, action) => {
 ```
 const increase = (amount) => ({type: 'INCREMENT', payload: amount});
 ```
-+ `dispatch` - this function executes the action and dispaches its return to trigger a state change.  The dispatch goes thru ALL of the reducers found in the store.
++ `dispatch` - this function executes the action and dispaches its return to trigger a state change.  The dispatch goes thru ALL of the reducers found in the store. Use `useDispatch` hook in react.
 ```
+//Vanilla JS
 store.dispatch(increase());
+
+//React 
+import {useDispatch, useSelector} from 'react-redux';
+
+function App() {
+    const dispatch = useDispatch();
+    //...
+}
+```
++ `useSelector` - this hook is a function that returns the full state and then you can select only the property in the state that you need.
+```
+import './App.css';
+import {useSelector} from 'react-redux';
+
+function App() {
+    const count = useSelector((state) => state.count);
+}
+
+export default App;
 ```
 + `getState` - It returns the state of the store.
 ```
@@ -150,17 +170,6 @@ const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 
 //If you have more than one middleware, you can include them all in the applyMiddleware separated by comma.
 //const store = createStore(appReducer, applyMiddleware(stateSnapShot));
-```
-+ `useSelector` - this hook is a function that returns the full state and then you can select only the property in the state that you need.
-```
-import './App.css';
-import {useSelector} from 'react-redux';
-
-function App() {
-    const count = useSelector((state) => state.count);
-}
-
-export default App;
 ```
 
 ### Full Example (Vanilla JS)
@@ -328,3 +337,78 @@ export const tasksSlice = createSlice({
 });
 ```
 + Reducers in the slice - You can write "mutating" logic in reducers but it does not actually mutate the state. Redux-Toolkit uses **Immer** a library which catches changes and produces a new immutable state from those changes.
++ `useDispatch` - this function executes the action and dispaches its return to trigger a state change.  The dispatch goes thru ALL of the reducers found in the store.
+```
+import {useDispatch} from 'react-redux';
+
+function App() {
+    const dispatch = useDispatch();
+    //...
+}
+```
++ `useSelector` - this hook is a function that returns the full state and then you can select only the property in the state that you need.
+```
+import './App.css';
+import {useSelector} from 'react-redux';
+
+function App() {
+    const count = useSelector((state) => state.count.value);
+}
+
+export default App;
+```
+
+## Full Example React Redux-Toolkit
+```
+//src/redux/slices/counterSlice.js
+import {createSlice} from '@reduxjs/toolkit';
+
+export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: {value: 0},
+    reducers: {
+        increment: (state, action) => {
+            state.value += 1;
+        }
+    }
+});
+
+//src/App.jsx
+import './App.css';
+import {useDispatch, useSelector} from 'react-redux';
+import {counterSlice} from './redux/slices/counterSlice.js';
+
+function App() {
+    const dispatch = useDispatch();
+    const counter = useSelector((state) => state.counter.value);
+
+    return (
+        <button onClick={() => dispatch(counterSlice.actions.increment())}>
+            count is {counter}
+        </button>
+    );
+}
+
+export default App;
+
+//src/main.jsx
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import App from './App.jsx';
+import {Provider} from 'react-redux';
+import {store} from './redux/index.js';
+
+createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+        <StrictMode>
+            <App/>
+        </StrictMode>
+    </Provider>
+);
+```
++`createAction` - use this function to change the way you pass an action to your dispatch.  Instead of using the more verbose way of calling a function `dispatch(taskReducer.actions.toggle)` using `createAction` can help you make the function call to be `dispatch(toggleTask)`.
+```
+export const toggleTask = createAction("tasks/toggle", (taskId, complete) => ({
+  payload: { taskId, complete },
+}));
+```
