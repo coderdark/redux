@@ -1,6 +1,9 @@
 # Redux
 Global state management (internally uses react context). Small api set: `applyMiddleware`, `bindActionCreators`, `combineReducers`, `compose`, `createStore` + 4 more.
 
+## Redux Toolkit
+
+## Redux
 ## API
 + Store - Its the place that keeps your state. Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
 + Componse - takes multiple functions and composes a new function that applies all the functions passed from right to left.
