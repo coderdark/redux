@@ -357,6 +357,12 @@ function App() {
 
 export default App;
 ```
++`createAction` - use this function to change the way you pass an action to your dispatch.  Instead of using the more verbose way of calling a function `dispatch(taskReducer.actions.toggle)` using `createAction` can help you make the function call to be `dispatch(toggleTask)`.
+```
+export const toggleTask = createAction("tasks/toggle", (taskId, complete) => ({
+  payload: { taskId, complete },
+}));
+```
 
 ## Full Example React Redux-Toolkit
 ```
@@ -405,10 +411,4 @@ createRoot(document.getElementById('root')).render(
         </StrictMode>
     </Provider>
 );
-```
-+`createAction` - use this function to change the way you pass an action to your dispatch.  Instead of using the more verbose way of calling a function `dispatch(taskReducer.actions.toggle)` using `createAction` can help you make the function call to be `dispatch(toggleTask)`.
-```
-export const toggleTask = createAction("tasks/toggle", (taskId, complete) => ({
-  payload: { taskId, complete },
-}));
 ```
