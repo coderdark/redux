@@ -1,8 +1,7 @@
 # Redux
 Global state management (internally uses react context). Small api set: `applyMiddleware`, `bindActionCreators`, `combineReducers`, `compose`, `createStore` + 4 more.
 
-## Redux Toolkit
-https://redux-toolkit.js.org/
+## Redux Toolkit - https://redux-toolkit.js.org/
 Sits on top of **Redux**
 ###
 
