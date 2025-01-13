@@ -138,6 +138,17 @@ const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 //If you have more than one middleware, you can include them all in the applyMiddleware separated by comma.
 //const store = createStore(appReducer, applyMiddleware(stateSnapShot));
 ```
++ `useSelector` - this hook is a function that returns the full state and then you can select only the property in the state that you need.
+```
+import './App.css';
+import {useSelector} from 'react-redux';
+
+function App() {
+    const count = useSelector((state) => state.count);
+}
+
+export default App;
+```
 
 ## Full Example (Vanilla JS)
 ```
@@ -207,5 +218,56 @@ const actions = bindActionCreators({addPlayer, addTeam}, store.dispatch);
 
 actions.addPlayer({name: 'Josh Allen'});
 actions.addTeam({team: 'Buffalo Bills'});
+```
 
+## Full Example (React)
+```
+//src/redux/actions/index.js
+export const increment = () => ({type: 'INCREMENT'});
+
+//src/redux/reducers/index.js
+export const counterReducer = (state, action) => {
+    if (action.type === 'INCREMENT') {
+        return {count: state.count + 1};
+    }
+
+    return state;
+};
+
+//src/redux/index.js
+import {applyMiddleware, createStore} from 'redux';
+import {counterReducer} from './reducers/index.js';
+import {localStorage} from './localStorage.js';
+
+const initialState = {count: 0};
+
+export const store = createStore(counterReducer, initialState);
+
+//src/redux/provider.js
+import {Provider} from 'react-redux';
+import {store} from './index.jsx';
+
+export const StoreProvider = ({children}) => {
+    return <Provider store={store}>
+        {children}
+    </Provider>;
+};
+
+//src/App.jsx
+import './App.css';
+import {useDispatch, useSelector} from 'react-redux';
+import {increment} from './redux/actions';
+
+function App() {
+    const dispatch = useDispatch();
+    const count = useSelector((state) => state.count);
+
+    return (
+        <button onClick={() => dispatch(increment())}>
+            count is {count}
+        </button>
+    );
+}
+
+export default App;
 ```
