@@ -4,7 +4,7 @@ Global state management (internally uses react context). Small api set: `applyMi
 ## Redux Toolkit
 
 ## Redux
-## API
+### API
 + Store - Its the place that keeps your state. Only one store, having multiple store is an unti-pattern. You create one using the `createStore` function.
 + Componse - takes multiple functions and composes a new function that applies all the functions passed from right to left.
 ```
@@ -153,7 +153,7 @@ function App() {
 export default App;
 ```
 
-## Full Example (Vanilla JS)
+### Full Example (Vanilla JS)
 ```
 import {createStore, compose, applyMiddleware, bindActionCreators, combineReducers} from 'redux';
 
@@ -223,7 +223,7 @@ actions.addPlayer({name: 'Josh Allen'});
 actions.addTeam({team: 'Buffalo Bills'});
 ```
 
-## Full Example (React)
+### Full Example (React)
 ```
 //src/redux/actions/index.js
 export const increment = () => ({type: 'INCREMENT'});
