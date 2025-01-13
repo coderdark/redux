@@ -288,12 +288,43 @@ export default App;
 ## Redux Toolkit - https://redux-toolkit.js.org/
 Sits on top of **Redux**, it hides alot of the stuff that redux needs to work. Basically some of the foundation work you did in redux. 
 + Folder (Features) structure is app to your app and what works for you.
-+ Slices - you keep all your redux pieces such as actions creators, reducers, etc in here.
-+ Store - use the `configureStore` to set your redux store.
++ Includes a helper library called  `nanoid` to create unique ids.
++ Store - use the `configureStore` to set your redux store. When configuring the store, redux-toolkit sets 3 **development** middlewares: Mutation Checking, Serialized State Exporting and Thunk. It also sets developer tools (Chrome Plugin to debug redux) automatically.
 ```
 import { configureStore } from "@reduxjs/toolkit";
+import { tasksSlice } from "./TasksSlice";
 
 export const store = configureStore({
-  reducer: (state) => state,
+  reducer: {
+    tasks: tasksSlice.reducer,
+  },
 });
 ```
++ Slices - you keep all your redux pieces such as actions creators, reducers, etc in here.
+```
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+
+const createTask = (title) => ({
+  id: nanoid(),
+  title,
+  complete: false,
+  assignedTo: "",
+});
+
+const initialState = [
+  createTask("Order more energy drinks"),
+  createTask("Water the plants"),
+];
+
+export const tasksSlice = createSlice({
+  name: "tasks",
+  initialState,
+  reducers: {
+    add: (state, action) => {
+      const task = createTask(action.payload);
+      state.push(task);
+    },
+  },
+});
+```
++ Reducers in the slice - You can write "mutating" logic in reducers but it does not actually mutate the state. Redux-Toolkit uses **Immer** a library which catches changes and produces a new immutable state from those changes.
