@@ -3,6 +3,7 @@ Global state management (internally uses react context). Small api set: `applyMi
 
 ## Redux Toolkit
 https://redux-toolkit.js.org/
+Sits on top of **Redux**
 ###
 
 
