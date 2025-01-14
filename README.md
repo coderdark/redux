@@ -363,6 +363,48 @@ export const toggleTask = createAction("tasks/toggle", (taskId, complete) => ({
   payload: { taskId, complete },
 }));
 ```
++ Extra Reducers - this allows you to capture any action dispatch from another reducer to update the reducer that is listening.
+```
+//counterSlice.js
+import {createSlice} from '@reduxjs/toolkit';
+import {playerSlice} from './playerSlice.js';
+
+export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: {counter: 0},
+    reducers: {
+        increment: (state, action) => {
+            state.counter += 1;
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(playerSlice.actions.add, (state, action) => {
+            console.log(state, action);
+            state.counter += 1;
+        });
+    }
+});
+
+//playerSlice.js
+import {createSlice, nanoid} from '@reduxjs/toolkit';
+
+const createPlayer = (name) => ({
+    id: nanoid(),
+    name,
+    superBowls: []
+});
+
+export const playerSlice = createSlice({
+    name: 'player',
+    initialState: [],
+    reducers: {
+        add(state, action) {
+            state.push(createPlayer(action.payload));
+        }
+    }
+});
+
+```
 
 ## Full Example React Redux-Toolkit
 ```
